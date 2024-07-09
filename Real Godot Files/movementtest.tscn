@@ -319,4 +319,10 @@ limit_top = 0
 limit_right = 1000000
 limit_bottom = 450
 position_smoothing_enabled = true
-position_smoothing_speed = 15.0
+position_smoothing_speed = 9.8
+
+[node name="DashCoolDown" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="CharacterBody2D/DashCoolDown" to="CharacterBody2D" method="_on_timer_timeout"]
