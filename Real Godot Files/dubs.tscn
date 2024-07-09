@@ -19,4 +19,18 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Start"
 
+[node name="quit" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -31.0
+offset_right = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Quit"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
