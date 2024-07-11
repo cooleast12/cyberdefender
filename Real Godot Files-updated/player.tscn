@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7ist8gyhsxif"]
+[gd_scene load_steps=18 format=3 uid="uid://c7ist8gyhsxif"]
 
 [ext_resource type="Script" path="res://scripts/realcharmovement.gd" id="1_31n1o"]
 [ext_resource type="Texture2D" uid="uid://chltcpt4vsir3" path="res://art/Full_Designs_v7.png" id="1_oqqbt"]
@@ -21,6 +21,10 @@ region = Rect2(224, 32, 32, 32)
 atlas = ExtResource("1_oqqbt")
 region = Rect2(128, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwyco"]
+atlas = ExtResource("1_oqqbt")
+region = Rect2(64, 64, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_a37m4"]
 atlas = ExtResource("1_oqqbt")
 region = Rect2(96, 32, 32, 31)
@@ -37,17 +41,8 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0lrlv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0lrlv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0lrlv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0lrlv")
 }],
-"loop": true,
+"loop": false,
 "name": &"dash",
 "speed": 5.0
 }, {
@@ -72,6 +67,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_cwyco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwyco")
+}],
+"loop": false,
+"name": &"throw",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_a37m4")
 }, {
 "duration": 1.0,
@@ -82,7 +88,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6vpx4"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_tt2wl"]
+radius = 11.0
 
 [sub_resource type="Gradient" id="Gradient_dmayx"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
@@ -99,27 +106,30 @@ initial_velocity_max = 20.0
 gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_pvp6x")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_eogus"]
+radius = 12.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
-position = Vector2(95, 50)
+position = Vector2(0, -1)
 script = ExtResource("1_31n1o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(385, 254)
+position = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_payb4")
-animation = &"dash"
+animation = &"throw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(385.5, 254)
-shape = SubResource("RectangleShape2D_6vpx4")
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_tt2wl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(386, 254)
+position = Vector2(1, 1)
 zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
 limit_right = 1000000
-limit_bottom = 450
+limit_bottom = 1000
 position_smoothing_enabled = true
 position_smoothing_speed = 9.8
 
@@ -129,9 +139,24 @@ one_shot = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 show_behind_parent = true
-position = Vector2(385, 264)
+position = Vector2(1, 11)
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_co7jd")
 
+[node name="ShotPosLeft" type="Marker2D" parent="."]
+position = Vector2(-25, 0)
+
+[node name="ShotPos" type="Marker2D" parent="."]
+position = Vector2(24, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_eogus")
+
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

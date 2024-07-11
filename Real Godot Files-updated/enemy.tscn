@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dko1g5kttq0dq"]
+[gd_scene load_steps=14 format=3 uid="uid://dko1g5kttq0dq"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_h6ttc"]
 [ext_resource type="Texture2D" uid="uid://chltcpt4vsir3" path="res://art/Full_Designs_v7.png" id="2_2y5xo"]
@@ -70,9 +70,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_tm2ti"]
 radius = 15.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4jr58"]
+radius = 17.0
+
 [node name="enemy" type="CharacterBody2D"]
 position = Vector2(0, -1)
-collision_layer = 3
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_h6ttc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -85,3 +89,12 @@ shape = SubResource("CircleShape2D_tm2ti")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(16, 1)
 target_position = Vector2(0, 24)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4jr58")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccpel7gmn54ij"]
+
+[ext_resource type="Script" path="res://door.gd" id="1_7u7me"]
+[ext_resource type="Texture2D" uid="uid://dks5rarknlmkr" path="res://art/CyberDefender_asset_door.png" id="2_uo2c4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t11r3"]
+atlas = ExtResource("2_uo2c4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p6naq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t11r3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ifqxf"]
+radius = 6.08276
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axv2m"]
+size = Vector2(26, 31)
+
+[node name="door1" type="CharacterBody2D"]
+script = ExtResource("1_7u7me")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_p6naq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ifqxf")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_axv2m")
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
