@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var dashing = false
 @export var target_to_chase: CharacterBody2D
+var health = 3
+var damaged :bool = false
 
 var speed = 50
 var facing_right = true
@@ -19,7 +21,12 @@ func flip():
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta 
-	$AnimatedSprite2D.play()
+	if !damaged:
+		$AnimatedSprite2D.modulate = Color(1,1,1)
+		$AnimatedSprite2D.play("walking")
+	else:
+		$AnimatedSprite2D.modulate = Color(1,0,0)
+		$AnimatedSprite2D.play("damaged")
 	if !$RayCast2D.is_colliding() && is_on_floor():
 		flip()
 	if is_on_wall() && !dashing:
@@ -32,5 +39,11 @@ func _physics_process(delta):
 func destroy():
 	queue_free()
 
+
 func _on_area_2d_body_entered(body):
-	destroy()
+	if health == 1 :
+		destroy()
+	health -= 1
+	damaged = true
+	await get_tree().create_timer(0.2).timeout
+	damaged = false

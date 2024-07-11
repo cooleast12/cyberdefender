@@ -249,7 +249,7 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_v6xx1")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgyvg"]
-size = Vector2(2545, 20)
+size = Vector2(2545, 78)
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(-1, -2)
@@ -266,9 +266,6 @@ position = Vector2(167, 589)
 [node name="enemy2" parent="TileMap" instance=ExtResource("2_07xoq")]
 position = Vector2(200, 751)
 
-[node name="enemy3" parent="TileMap" instance=ExtResource("2_07xoq")]
-position = Vector2(400, 1502)
-
 [node name="enemy4" parent="TileMap" instance=ExtResource("2_07xoq")]
 position = Vector2(181, 369)
 
@@ -284,7 +281,7 @@ position = Vector2(100, 699)
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(664.5, 993)
+position = Vector2(519, 1112)
 shape = SubResource("RectangleShape2D_pgyvg")
 
 [node name="door1" parent="." instance=ExtResource("4_5ngmy")]

@@ -1,7 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dko1g5kttq0dq"]
+[gd_scene load_steps=15 format=3 uid="uid://dko1g5kttq0dq"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_h6ttc"]
 [ext_resource type="Texture2D" uid="uid://chltcpt4vsir3" path="res://art/Full_Designs_v7.png" id="2_2y5xo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mtua"]
+atlas = ExtResource("2_2y5xo")
+region = Rect2(96, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3hsas"]
 atlas = ExtResource("2_2y5xo")
@@ -37,6 +41,17 @@ region = Rect2(64, 192, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yj243"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mtua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mtua")
+}],
+"loop": true,
+"name": &"damaged",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3hsas")
@@ -81,7 +96,7 @@ script = ExtResource("1_h6ttc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yj243")
-animation = &"walking"
+animation = &"damaged"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tm2ti")
