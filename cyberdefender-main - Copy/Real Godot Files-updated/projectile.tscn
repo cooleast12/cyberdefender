@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://oevkafoipoqy"]
+
+[ext_resource type="Texture2D" uid="uid://chltcpt4vsir3" path="res://art/Full_Designs_v7.png" id="1_lher3"]
+[ext_resource type="Script" path="res://projectiles.gd" id="1_w8wh1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5wk5"]
+radius = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i5xt"]
+atlas = ExtResource("1_lher3")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t27h4"]
+atlas = ExtResource("1_lher3")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rf5e0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t27h4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t27h4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t27h4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t27h4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t27h4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1u6n0"]
+radius = 3.0
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_w8wh1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c5wk5")
+one_way_collision_margin = 0.0
+
+[node name="OneZero" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 9.53674e-07)
+scale = Vector2(2.28125, 1.96875)
+sprite_frames = SubResource("SpriteFrames_rf5e0")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1u6n0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

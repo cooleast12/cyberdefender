@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://c04spnnridqdq"]
+
+[ext_resource type="Script" path="res://RealMenu.gd" id="1_2mss4"]
+[ext_resource type="Texture2D" uid="uid://d1ff66hhvy7al" path="res://art/Artboard 4.png" id="2_n2oj0"]
+[ext_resource type="Texture2D" uid="uid://dw3d1mqe55kl2" path="res://art/Artboard 5.png" id="3_qd8uq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d741e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0g77o"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_2mss4")
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.49375
+anchor_top = 0.5
+anchor_right = 0.49375
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = 41.0
+offset_right = 85.0
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d741e")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0g77o")
+icon = ExtResource("2_n2oj0")
+metadata/_edit_use_anchors_ = true
+
+[node name="quit" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -191.0
+offset_right = 12.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Exit"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(644, 266)
+scale = Vector2(4.3125, 3.45652)
+texture = ExtResource("3_qd8uq")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
